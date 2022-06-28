@@ -50,11 +50,15 @@ export class App extends Component {
           />
         </Section>
         <Section title="Statistics">
-          <Statistics
-            total={totalAnswears}
-            positivePercentage={avarageValue}
-            statsArray={statsArray}
-          />
+          {totalAnswears === 0 ? (
+            <h1>No feedback given</h1>
+          ) : (
+            <Statistics
+              total={totalAnswears}
+              positivePercentage={avarageValue}
+              statsArray={statsArray}
+            />
+          )}
         </Section>
       </div>
     );
