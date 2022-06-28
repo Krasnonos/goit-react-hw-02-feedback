@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { FeedbackOptions } from './FeedbackOptions/FeedbackOptions';
+import { Statistics } from './Statistics/Statistics';
+import { Section } from './Section/Section';
 
 export class App extends Component {
   state = {
@@ -26,9 +29,9 @@ export class App extends Component {
     const positiveFeedback = this.state.good;
 
     if (positiveFeedback === 0) {
-      return 0;
+      return Number(0);
     } else {
-      return ((positiveFeedback / totalFeedback) * 100).toFixed(0);
+      return Number(((positiveFeedback / totalFeedback) * 100).toFixed(0));
     }
   }
 
@@ -40,30 +43,19 @@ export class App extends Component {
 
     return (
       <div>
-        <h1>Please leave feedback</h1>
-        <ul>
-          {buttonsArray.map(button => (
-            <li key={button}>
-              <button type="button" onClick={() => this.choseAnswer(button)}>
-                {button}
-              </button>
-            </li>
-          ))}
-        </ul>
-        <div>
-          <p>Statistics</p>
-          <ul>
-            {statsArray.map(item => (
-              <li key={item[0]}>
-                <p>
-                  {item[0]}: {item[1]}
-                </p>
-              </li>
-            ))}
-          </ul>
-          <p>Total: {totalAnswears}</p>
-          <p>Positive Feedback: {avarageValue}%</p>
-        </div>
+        <Section title="Please leave feedback">
+          <FeedbackOptions
+            options={buttonsArray}
+            onLeaveFeedback={this.choseAnswer}
+          />
+        </Section>
+        <Section title="Statistics">
+          <Statistics
+            total={totalAnswears}
+            positivePercentage={avarageValue}
+            statsArray={statsArray}
+          />
+        </Section>
       </div>
     );
   }
